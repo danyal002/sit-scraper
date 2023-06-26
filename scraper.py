@@ -9,7 +9,8 @@ from selenium.webdriver.chrome.options import Options
 def check_website():
     options = Options()
     options.add_argument("--headless")
-    service = Service('/usr/local/bin/chromedriver')  
+    # service = Service('/usr/local/bin/chromedriver')  
+    service = Service('/usr/lib/chromium-browser/chromedriver')  
     driver = webdriver.Chrome(service=service, options=options)
     
     url = 'https://bolig.sit.no/en/' 
@@ -19,15 +20,19 @@ def check_website():
     label = driver.find_element(By.CSS_SELECTOR, 'label[for="Trondheim"].checkbox__StyledLabel-sc-1371sdl-2.gkAgbU')
     
     if not label:
-        notify("Apartment Found", "Book your fucking room right now!!")
+        # notifyMacOS("Apartment Found", "Book your fucking room right now!!")
+        print("Apartment Found")
     
     driver.quit()
 
 
-def notify(title, text):
+def notifyMacOS(title, text):
     os.system("""
               osascript -e 'display notification "{}" with title "{}"'
               """.format(text, title))
+
+# def notifyiPhone():
+#     o.MxBHak8iaYPi7QllzgUPabZMlnJmTYkd
 
 
 check_website()
